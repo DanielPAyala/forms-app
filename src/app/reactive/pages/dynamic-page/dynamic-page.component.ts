@@ -20,7 +20,7 @@ export class DynamicPageComponent {
     ]),
   });
 
-  newFavorite: FormControl = this.fb.control('');
+  newFavorite: FormControl = this.fb.control('', Validators.required);
 
   constructor(private fb: FormBuilder) {}
 
@@ -61,6 +61,10 @@ export class DynamicPageComponent {
   }
 
   onAddFavorite(): void {
+    if (this.newFavorite.invalid) {
+      this.newFavorite.markAsTouched();
+      return;
+    }
     this.favoriteGames.push(
       this.fb.control(this.newFavorite.value, Validators.required)
     );

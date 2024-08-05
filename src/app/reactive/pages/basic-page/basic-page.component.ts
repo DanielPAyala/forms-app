@@ -12,7 +12,7 @@ import {
 })
 export class BasicPageComponent implements OnInit {
   // myForm: FormGroup = new FormGroup({
-  //   name: new FormControl(''),
+  //   name: new FormControl('', []),
   //   price: new FormControl(0),
   //   inStorage: new FormControl(0),
   // });
@@ -50,7 +50,10 @@ export class BasicPageComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.myForm.invalid) return;
+    if (this.myForm.invalid){
+      this.myForm.markAllAsTouched();
+      return;
+    }
     console.log(this.myForm.value);
 
     this.myForm.reset({ price: 0, inStorage: 0 });

@@ -27,15 +27,18 @@
           class="form-control"
           placeholder="Agregar favorito"
         />
-
+        
         <button
-          (click)="onAddFavorite()"
-          class="btn btn-outline-primary"
-          type="button"
+        (click)="onAddFavorite()"
+        class="btn btn-outline-primary"
+        type="button"
         >
-          Agregar favorito
-        </button>
-      </div>
+        Agregar favorito
+      </button>
+    </div>
+    <span *ngIf="newFavorite.errors && newFavorite.touched " class="form-text text-danger">
+      Este campo es requerido para agregar un favorito
+    </span>
     </div>
   </div>
 
