@@ -1,7 +1,7 @@
 <h2>Reactivos: Switches</h2>
 <hr />
 
-<form autocomplete="off">
+<form [formGroup]="myform" (ngSubmit)="onSave()" autocomplete="off">
   <!-- Radio -->
   <div class="row mb-3">
     <label class="col-sm-3 col-form-label">Género</label>
@@ -10,8 +10,10 @@
         <input
           class="form-check-input"
           type="radio"
+          name="gender"
           value="M"
           id="radioMasculino"
+          formControlName="gender"
         />
         <label class="form-check-label" for="radioMasculino"> Masculino </label>
       </div>
@@ -20,8 +22,10 @@
         <input
           class="form-check-input"
           type="radio"
+          name="gender"
           value="F"
           id="radioFemenino"
+          formControlName="gender"
         />
         <label class="form-check-label" for="radioFemenino"> Femenino </label>
       </div>
@@ -37,6 +41,7 @@
           class="form-check-input"
           type="checkbox"
           id="flexSwitchCheckChecked"
+          formControlName="wantNotifications"
         />
         <label class="form-check-label" for="flexSwitchCheckChecked"
           >Quiero recibir notificaciones</label
@@ -50,12 +55,12 @@
     <label class="col-sm-3 col-form-label"></label>
     <div class="col-sm-9">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="flexCheckDefault" />
+        <input class="form-check-input" type="checkbox" id="flexCheckDefault" formControlName="termsAndConditions" />
         <label class="form-check-label" for="flexCheckDefault">
           Términos y condiciones de uso
         </label>
       </div>
-      <span class="form-text text-danger">
+      <span *ngIf="isValidFied('termsAndConditions')" class="form-text text-danger">
         Debe de aceptar las condiciones de uso
       </span>
     </div>
@@ -70,7 +75,7 @@
 </form>
 
 <h5>Valor del formulario</h5>
-<pre>{{ "object" | json }}</pre>
+<pre>{{ myform.value| json }}</pre>
 <br />
 
 <h5>Persona</h5>
@@ -78,10 +83,10 @@
 <br />
 
 <h5>Valid</h5>
-<pre>{{ "object" | json }}</pre>
+<pre>{{ myform.valid| json }}</pre>
 
-<!-- <h5>Términos</h5> -->
-<!-- <pre>{{ myForm.controls?.terminos?.errors | json }}</pre> -->
+<h5>Términos</h5>
+<pre>{{ myform.controls['termsAndConditions'].errors | json }}</pre>
 
 <!-- <br>
 <pre>Condiciones: </pre> -->
