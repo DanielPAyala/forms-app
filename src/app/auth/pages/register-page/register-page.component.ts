@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { canBeStrider } from '../../../shared/validators/validator';
+import * as customValidators from '../../../shared/validators/validator';
+import { ValidatorsService } from '../../../shared/services/validators.service';
 
 @Component({
   templateUrl: './register-page.component.html',
@@ -8,17 +9,35 @@ import { canBeStrider } from '../../../shared/validators/validator';
 })
 export class RegisterPageComponent {
   public myForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required]],
-    email: ['', [Validators.required]],
-    username: ['', [Validators.required, canBeStrider]],
+    name: [
+      '',
+      [Validators.required, Validators.pattern(this.firstNameAndLastnamePattern)],
+    ],
+    email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+    username: ['', [Validators.required, this.canBeStrider]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     password2: ['', [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private validatorsService: ValidatorsService
+  ) {}
 
-  isValidField(field: string) {
-    // TODO: obtener validacion de un servicio
+  get firstNameAndLastnamePattern() {
+    return this.validatorsService.firstNameAndLastnamePattern;
+  }
+
+  get emailPattern() {
+    return this.validatorsService.emailPattern;
+  }
+
+  get canBeStrider() {
+    return this.validatorsService.canBeStrider;
+  }
+
+  isValidField(field: string): boolean {
+    return this.validatorsService.isValidField(this.myForm, field);
   }
 
   onSubmit() {

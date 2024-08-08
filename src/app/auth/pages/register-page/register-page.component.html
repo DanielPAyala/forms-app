@@ -15,7 +15,7 @@
             placeholder="Nombre del usuario"
           />
 
-          <span class="form-text text-danger">
+          <span *ngIf="isValidField('name')" class="form-text text-danger">
             Debe de ser en formato de nombre y apellido
           </span>
         </div>
@@ -31,7 +31,7 @@
             formControlName="email"
             placeholder="Email del usuario"
           />
-          <span class="form-text text-danger">
+          <span *ngIf="isValidField('email')" class="form-text text-danger">
             mensaje de error del email
           </span>
         </div>
@@ -47,7 +47,7 @@
             formControlName="username"
             placeholder="Nombre código del usuario"
           />
-          <span class="form-text text-danger">
+          <span *ngIf="isValidField('username')" class="form-text text-danger">
             El username no puede ser Strider
           </span>
         </div>
@@ -64,7 +64,7 @@
             placeholder="Password de su cuenta"
           />
 
-          <span class="form-text text-danger">
+          <span *ngIf="isValidField('password')" class="form-text text-danger">
             La contraseña debe de ser mayor de 6 caracteres.
           </span>
         </div>
@@ -81,7 +81,7 @@
             placeholder="Confirmar la contraseña"
           />
 
-          <span class="form-text text-danger">
+          <span *ngIf="isValidField('password2')" class="form-text text-danger">
             Las contraseñas deben de ser iguales
           </span>
         </div>
@@ -104,9 +104,11 @@
 
 <h5>Nombre</h5>
 <pre>{{ myForm.controls["name"].value | json }}</pre>
+<pre>{{ myForm.controls["name"].errors | json }}</pre>
 
 <h5>Email</h5>
 <pre>{{ myForm.controls["email"].value | json }}</pre>
+<pre>{{ myForm.controls["email"].errors | json }}</pre>
 
 <h5>Username</h5>
 <pre>{{ myForm.controls["username"].value | json }}</pre>
