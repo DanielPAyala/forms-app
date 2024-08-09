@@ -18,6 +18,8 @@ export class RegisterPageComponent {
     username: ['', [Validators.required, this.canBeStrider]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     password2: ['', [Validators.required]],
+  }, {
+    validators: [this.validatorsService.sameFields('password', 'password2')]
   });
 
   constructor(
