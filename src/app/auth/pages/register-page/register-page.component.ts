@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as customValidators from '../../../shared/validators/validator';
 import { ValidatorsService } from '../../../shared/services/validators.service';
+import { EmailValidatorService } from '../../../shared/validators/email-validator.service';
 
 @Component({
   templateUrl: './register-page.component.html',
@@ -13,7 +13,8 @@ export class RegisterPageComponent {
       '',
       [Validators.required, Validators.pattern(this.firstNameAndLastnamePattern)],
     ],
-    email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+    // email: ['', [Validators.required, Validators.pattern(this.emailPattern)], [new EmailValidatorService()]],
+    email: ['', [Validators.required, Validators.pattern(this.emailPattern)], [this.emailValidatorService]],
     username: ['', [Validators.required, this.canBeStrider]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     password2: ['', [Validators.required]],
@@ -21,7 +22,8 @@ export class RegisterPageComponent {
 
   constructor(
     private fb: FormBuilder,
-    private validatorsService: ValidatorsService
+    private validatorsService: ValidatorsService,
+    private emailValidatorService: EmailValidatorService
   ) {}
 
   get firstNameAndLastnamePattern() {
